@@ -3,12 +3,12 @@
 //
 #include <cerrno>
 
-#define unused_param(param) (void) param
+#define unused(param) (void) param
 
 __attribute__((weak)) int _kill(int pid, int sig) {
 
-    unused_param(pid);
-    unused_param(sig);
+    unused(pid);
+    unused(sig);
 
     errno = EINVAL;
 
@@ -32,7 +32,7 @@ __attribute__((weak)) int _getpid() {
 
 void *_sbrk(std::ptrdiff_t size) {
 
-    unused_param(size);
+    unused(size);
 
     return nullptr;
 }

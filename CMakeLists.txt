@@ -16,15 +16,19 @@ set(PROJECT_NAME Test)
 
 # project settings
 project(Test C CXX ASM)
-set(CMAKE_C_STANDARD 23)
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_C_STANDARD 20)
+set(CMAKE_CXX_STANDARD 20)
 
 # Uncomment for software floating point
 # add_compile_options(-mfloat-abi=soft)
 
-add_compile_options(-mcpu=cortex-m0 -mthumb -mthumb-interwork -specs=nano.specs -specs=nosys.specs)
-add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
-add_compile_options(-Wall -Wextra -Wpedantic -Wshadow  -Wunused -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wno-format -Wno-unused-function -Wno-maybe-uninitialized -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffunction-sections -fdata-sections")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mcpu=cortex-m0 -mthumb -mthumb-interwork -specs=nano.specs -specs=nosys.specs")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -fno-rtti")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wshadow  -Wunused -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wno-format -Wno-unused-function -Wno-maybe-uninitialized -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual")
 
 # uncomment to mitigate c++17 absolute addresses warnings
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-register")
@@ -49,7 +53,6 @@ else ()
 endif ()
 
 include_directories(sources)
-include_directories(sources/drivers/cmsis)
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32G031xx)
 
